@@ -1,0 +1,8 @@
+version: '2'
+services:
+  log_toast:
+    image: twhtanghk/log_toast
+    container_name: log_toast
+    hostname: log_toast
+    ports: 
+      - 8080

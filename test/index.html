@@ -1,0 +1,17 @@
+<html>
+<head>
+<link href="index.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
+<script src="index.js"></script>
+</head>
+<body ng-app='controller' ng-controller='LogCtrl'>
+  <toaster-container></toaster-container>
+  <input type='text' ng-model='msg'>
+  <button ng-click="$log.log(msg)">Log</button>
+  <button ng-click="$log.info(msg)">Info</button>
+  <button ng-click="$log.warn(msg)">Warn</button>
+  <button ng-click="$log.error(msg)">Error</button>
+  <button ng-click="$log.debug(msg)">Debug</button>
+</body>
+</html>
