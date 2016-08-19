@@ -4,7 +4,7 @@
   "description": "Show angular $log as Toaster",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp",
+    "postinstall": "node_modules/.bin/gulp",
     "test": "http-server test"
   },
   "repository": {
