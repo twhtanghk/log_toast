@@ -1,48 +1,63 @@
 gulp = require 'gulp'
 bower = require 'bower'
-sass = require 'gulp-sass'
-less = require 'gulp-less'
 concat = require 'gulp-concat'
 merge = require 'streamqueue'
-minifyCss = require 'gulp-minify-css'
 rename = require 'gulp-rename'
+copy = require 'gulp-copy'
 browserify = require 'browserify'
+streamify = require 'gulp-streamify'
+uglify = require 'gulp-uglify'
 source = require 'vinyl-source-stream'
+rework = require 'gulp-rework'
+reworkNPM = require 'rework-npm'
+cleanCSS = require 'gulp-clean-css'
+del = require 'del'
 
-gulp.task 'default', ['css', 'coffee']
+gulp.task 'default', ['css', 'coffee', 'test']
 
 gulp.task 'css', ->
-  [lessAll, scssAll, cssAll] = [
-    gulp.src []
-      .pipe less()
-      .pipe concat 'less-files.less'
-    gulp.src ['./index.scss']
-      .pipe sass()
-      .pipe concat 'scss-files.scss'
-    gulp.src ['./node_modules/angularjs-toaster/toaster.css']
-      .pipe concat 'css-files.css'
-  ]
-  merge objectMode: true, lessAll, cssAll, scssAll
-    .pipe concat 'index.css'
+  gulp.src 'log_toast.css'
+    .pipe rework reworkNPM shim: 'angularjs-toaster': 'toaster.css'
+    .pipe rename 'index.css'
     .pipe gulp.dest './'
-    .pipe gulp.dest './test'
-    .pipe minifyCss()
-    .pipe rename extname: '.min.css'
+    .pipe cleanCSS()
+    .pipe rename 'index.min.css'
     .pipe gulp.dest './'
-    .pipe gulp.dest './test'
 
-gulp.task 'lib', ->
+gulp.task 'coffee', ->
   browserify entries: ['./index.coffee']
     .transform('coffeeify')
     .transform('debowerify')
     .bundle()
     .pipe source 'index.js'
     .pipe gulp.dest './'
+    .pipe streamify uglify()
+    .pipe rename extname: '.min.js'
+    .pipe gulp.dest './'
 
-gulp.task 'coffee', ['lib'], ->
+gulp.task 'test', ['coffee'], ->
+  gulp.src 'index.min.css'
+    .pipe copy './test'
+
   browserify entries: ['./test/index.coffee']
     .transform('coffeeify')
     .transform('debowerify')
     .bundle()
     .pipe source 'index.js'
     .pipe gulp.dest './test/'
+    .pipe streamify uglify()
+    .pipe rename extname: '.min.js'
+    .pipe gulp.dest './'
+
+gulp.task 'clean', ->
+  del [
+    'index.js'
+    'index.min.js'
+    'index.css'
+    'index.min.css'
+    'test/index.js'
+    'test/index.min.js'
+    'test/index.css'
+    'test/index.min.css'
+    'node_modules'
+  ]
