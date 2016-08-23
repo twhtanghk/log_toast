@@ -1,4 +1,4 @@
-require 'angularjs-toaster/toaster'
+require 'angularjs-toaster'
 
 angular
   .module 'logToast', ['toaster', 'ngAnimate']
