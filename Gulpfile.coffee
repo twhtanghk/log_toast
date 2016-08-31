@@ -23,7 +23,7 @@ gulp.task 'coffee', ->
 
 gulp.task 'test', ['coffee'], ->
   gulp.src 'index.css'
-    .pipe rework reworkNPM shim: 'angularjs-toaster': 'toaster.css'
+    .pipe rework reworkNPM shim: 'angular-toastr': 'dist/angular-toastr.css'
     .pipe gulp.dest './test'
     .pipe cleanCSS()
     .pipe rename extname: '.min.css'

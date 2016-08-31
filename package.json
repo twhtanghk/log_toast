@@ -1,6 +1,6 @@
 {
   "name": "log_toast",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Show angular $log as Toaster",
   "main": "index.js",
   "style": "index.css",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/twhtanghk/log_toast#readme",
   "dependencies": {
-    "angularjs-toaster": "^2.0.0"
+    "angular-toastr": "^2.1.1"
   },
   "devDependencies": {
     "bower": "^1.7.9",

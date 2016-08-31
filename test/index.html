@@ -6,7 +6,6 @@
 <script src="index.js"></script>
 </head>
 <body ng-app='controller' ng-controller='LogCtrl'>
-  <toaster-container></toaster-container>
   <input type='text' ng-model='msg'>
   <button ng-click="$log.log(msg)">Log</button>
   <button ng-click="$log.info(msg)">Info</button>

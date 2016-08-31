@@ -1,7 +1,10 @@
-require 'angularjs-toaster'
+require 'angular-toastr'
 
 angular
-  .module 'logToast', ['toaster', 'ngAnimate']
+  .module 'logToast', [
+    'toastr'
+    'ngAnimate'
+  ]
   .config ($provide) ->
     $provide.decorator '$log', ($delegate, $injector) ->
       class Log
@@ -15,26 +18,27 @@ angular
         instance = null
 
         @toaster: ->
-          instance ?= $injector.get 'toaster'
+          instance ?= $injector.get 'toastr'
 
+        show: (type, msg) ->
+          mapping =
+            log: 'success'
+            info: 'info'
+            warn: 'warning'
+            error: 'error'
+          type = mapping[type] || 'error'
+          Toast.toaster()[type](msg)
         log: (msg) ->
           super msg
-          Toast.toaster().pop 
-            body: msg
+          @show 'log', msg
         info: (msg) ->
           super msg
-          Toast.toaster().pop 
-            type: 'info'
-            body: msg
+          @show 'info', msg
         warn: (msg) ->
           super msg
-          Toast.toaster().pop 
-            type: 'warning'
-            body: msg
+          @show 'warn', msg
         error: (msg) ->
           super msg
-          Toast.toaster().pop 
-            type: 'error'
-            body: msg
+          @show 'error', msg
 
       new Toast()
