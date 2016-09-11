@@ -28,16 +28,16 @@ angular
             error: 'error'
           type = mapping[type] || 'error'
           Toast.toaster()[type](msg)
-        log: (msg) ->
+        log: (msg) =>
           super msg
           @show 'log', msg
-        info: (msg) ->
+        info: (msg) =>
           super msg
           @show 'info', msg
-        warn: (msg) ->
+        warn: (msg) =>
           super msg
           @show 'warn', msg
-        error: (msg) ->
+        error: (msg) =>
           super msg
           @show 'error', msg
 

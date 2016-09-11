@@ -1,4 +1,5 @@
-var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
 require('angular-toastr');
@@ -28,6 +29,10 @@ angular.module('logToast', ['toastr', 'ngAnimate']).config(function($provide) {
       extend(Toast, superClass);
 
       function Toast() {
+        this.error = bind(this.error, this);
+        this.warn = bind(this.warn, this);
+        this.info = bind(this.info, this);
+        this.log = bind(this.log, this);
         return Toast.__super__.constructor.apply(this, arguments);
       }
 
