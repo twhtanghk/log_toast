@@ -1,6 +1,6 @@
 {
   "name": "log_toast",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Show angular $log as Toaster",
   "main": "index.js",
   "style": "index.css",
