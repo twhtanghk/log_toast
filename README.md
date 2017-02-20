@@ -23,3 +23,5 @@ angular
       .$save()
       .catch $log.error
 ```
+
+4. [demo](https://cdn.rawgit.com/twhtanghk/log_toast/a6e0b07c/test/index.html)

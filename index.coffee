@@ -27,7 +27,7 @@ angular
             warn: 'warning'
             error: 'error'
           type = mapping[type] || 'error'
-          Toast.toaster()[type](msg)
+          Toast.toaster()[type](msg?.toString())
         log: (msg) =>
           super msg
           @show 'log', msg
